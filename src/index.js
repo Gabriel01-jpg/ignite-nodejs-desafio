@@ -24,7 +24,7 @@ function checksExistsUserAccount(request, response, next) {
 app.post('/users', (request, response) => {
   const { name, username } = request.body;
   
-  const userAlreadyExist = users.some(user => user.name === name || user.username === username );
+  const userAlreadyExist = users.some(user => user.username === username );
   if(userAlreadyExist){
     return response.status(400).json({ error: "User already exists "});
   }
@@ -55,7 +55,7 @@ app.post('/todos', checksExistsUserAccount, (request, response) => {
     title,
     done: false,
     deadline: new Date(deadline),
-    createdAt: new Date()
+    created_at: new Date()
   }
   
   user.todos.push(newTodo)
