@@ -37,7 +37,7 @@ app.post('/users', (request, response) => {
   }
   
   users.push(newUser)
-  return response.send(newUser);
+  return response.status(201).json(newUser);
 });
 
 app.get('/todos', checksExistsUserAccount, (request, response) => {
@@ -60,7 +60,7 @@ app.post('/todos', checksExistsUserAccount, (request, response) => {
   
   user.todos.push(newTodo)
   
-  return response.status(201).json(newTodo)
+  return response.status(201).json(newTodo);
   
 });
 
@@ -80,7 +80,7 @@ app.put('/todos/:id', checksExistsUserAccount, (request, response) => {
   todoExists.title = title;
   todoExists.deadline = new Date(deadline)
 
-  return response.send();
+  return response.json(todoExists);
   
 });
 
@@ -98,7 +98,7 @@ app.patch('/todos/:id/done', checksExistsUserAccount, (request, response) => {
   
   todoExists.done = true;
   
-  return response.send();
+  return response.json(todoExists);
   
 });
 
@@ -114,7 +114,7 @@ app.delete('/todos/:id', checksExistsUserAccount, (request, response) => {
   
   user.todos.splice(todoToDelete, 1)
   
-  return response.send();
+  return response.status(204).send();
 });
 
 module.exports = app;
